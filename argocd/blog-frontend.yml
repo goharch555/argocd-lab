@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: blog-frontend
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/goharch555/argocd-lab.git
+    targetRevision: main
+    path: apps/blog-frontend
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: blog-frontend
+  syncPolicy:
+    syncOptions:
+      - CreateNamespace=true
